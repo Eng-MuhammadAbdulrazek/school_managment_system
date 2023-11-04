@@ -74,8 +74,16 @@ NOTE: This file includes all admin Template plugins and Shortcodes. If you don't
 ::before {
   box-sizing: border-box; }
 
+  @font-face {
+    font-family: Cairo;
+    src: url(../fonts/Cairo.ttf);
+}
+
+*{
+  font-family: Cairo;
+}
 html {
-  font-family: sans-serif;
+  font-family: Cairo;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -101,7 +109,7 @@ section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: Cairo, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
