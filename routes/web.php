@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Grades\GradeController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Grades\SchoolGradesController;
 
 Route::group(
     [
@@ -16,7 +14,7 @@ Route::group(
             return view('dashboard');
         })->middleware(['auth', 'verified']);
 
-        Route::resource('grade', GradeController::class);
+        Route::resource('Grades', SchoolGradesController::class);
 
 
     });

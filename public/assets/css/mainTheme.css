@@ -74,8 +74,8 @@ color: #013156 !important;
 .dropdown:hover .dropdown-content {
   display: block;
 }
-.card{
-  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1) !important;
+.card,footer{
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1) !important;
 }
 .admin-header .navbar-brand img{
   height:40px !important;
@@ -88,4 +88,61 @@ color: #013156 !important;
 }
 footer a{
   color: #0091ff !important;
+}
+.side-menu-fixed .side-menu li ul li a{
+  font-size: 14px !important;
+  font-weight: normal !important;
+}
+.content-wrapper .breadcrumb{
+  visibility: hidden !important;
+}
+.admin-header {
+    /* -webkit-box-shadow: 1px 1px 15px rgba(0,0,0,.1); */
+    -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.1) !important;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.1) !important;
+}
+.side-menu-fixed .side-menu-bg {
+  background: #03243e !important;
+}
+.table .thead-dark th {
+  color: #fff;
+  background-color: #013156 !important;
+  border-color: #013156 !important;
+}
+.table{
+  margin-bottom: 0 !important;
+}
+.processCol{
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+.AddBTN{
+  margin-bottom: 20px;
+}
+/* .AddBTN button{
+  background-color: green;
+  border-color: green;
+}
+.AddBTN button:hover{
+  background-color: rgb(5, 90, 5);
+  border-color: rgb(5, 90, 5);
+} */
+.modal-title{
+  font-family: Cairo;
+}
+.form-control {
+  font-size: 14px !important;
+  height: auto !important;
+  line-height: 1.33333 !important;
+  padding: 10px 15px 10px 15px !important;
+  background-color: white !important;
+  color: #013156 !important;
+  border: 1px solid #0131562d !important;
+  box-shadow: none !important;
+}
+label{
+  font-size: 14px !important;
+  color: #013156 !important;
+  font-weight: bold !important;
 }

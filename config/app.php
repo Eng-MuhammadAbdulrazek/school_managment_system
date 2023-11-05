@@ -159,7 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         /*
          * Application Service Providers...
          */

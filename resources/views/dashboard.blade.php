@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-    Dashboard
+{{ trans('mainSideBar.Dashboard') }}
 @stop
 @endsection
 @section('page-header')
