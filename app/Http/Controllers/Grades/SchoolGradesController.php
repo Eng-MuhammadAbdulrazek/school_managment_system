@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Grades;
 
 use App\Models\Grade;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreGradeRequest;
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Str;
+
 
 class SchoolGradesController extends Controller
 {
@@ -18,19 +22,23 @@ class SchoolGradesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreGradeRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $Grade = new Grade();
+        $Grade->Name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+        $Notes = '';
+        if( Str::length($request->Notes) > 0){
+        $Grade->Notes = $request->Notes;
+        }
+        else{
+            $Grade->Notes = $Notes;
+        }
+        $Grade->save();
+        Toastr::success(trans('messages.success'), '', ["positionClass" => "toast-bottom-center"]);
+        return redirect()->route('Grades.index');
     }
 
     /**

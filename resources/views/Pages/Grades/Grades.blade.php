@@ -29,6 +29,15 @@
     <div class="col-md-12 mb-30">
         <div class="card card-statistics h-100">
             <div class="card-body">
+				@if ($errors->any())
+				<div class="alert alert-danger">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+				@endif
 				<div class="AddBTN">
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal">{{ trans('Grades_T.AddGrade') }}</button>
 				</div>
@@ -53,7 +62,19 @@
 					<tr>
 						<th scope="row">{{ $i }}</th>
 						<td>{{ $Grade->Name }}</td>
-						<td>{{ $Grade->Notes }}</td>
+						<td>
+							@php
+								if(strlen($Grade->Notes) > 0 )
+								{
+									echo $Grade->Notes;
+								}
+								else {
+									echo trans('Grades_T.No_Notes');
+								}
+							@endphp
+							
+						
+						</td>
 						<td class="processCol">
 							<button type="button" class="btn btn-success"><i class="ti-pencil"></i></button>
 							<button type="button" class="btn btn-danger"><i class="ti-trash"></i></button>
@@ -82,35 +103,40 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-			<form>
+			<form action="{{  route('Grades.store') }}" method="POST">
+				@csrf
 				<div class="row">
 				  <div class="col">
 					<label for="name_en">{{ trans('Grades_T.name_en') }}</label>
-					<input id="name_en" type="text" class="form-control" placeholder="">
+					<input id="name_en" name="name_en" type="text" class="form-control" placeholder="" required>
 				  </div>
 				  <div class="col">
 					<label for="name_ar">{{ trans('Grades_T.name_ar') }}</label>
-					<input id="name_en" type="text" class="form-control" placeholder="">
+					<input id="name_ar" name="name_ar" type="text" class="form-control" placeholder="" required>
 				  </div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col">
 					<label for="NotesTextArea">{{ trans('Grades_T.Notes') }}</label>
-					<textarea class="form-control" id="NotesTextArea" rows="3"></textarea>
+					<textarea class="form-control" name="Notes" id="NotesTextArea" rows="3"></textarea>
 					</div>
+				</div>
+				<br>
+				<div class="row" style="width:100% !important">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
+						<input type="submit" class="btn btn-success" value="{{ trans('Grades_T.AddNew') }}">
+					  </div>
 				</div>
 			</form>
 		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
-		  <button type="button" class="btn btn-success">{{ trans('Grades_T.AddNew') }}</button>
-		</div>
+		
 	  </div>
 	</div>
   </div>
 <!-- row closed -->
 @endsection
 @section('js')
-
+	
 @endsection

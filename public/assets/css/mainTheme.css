@@ -146,3 +146,20 @@ label{
   color: #013156 !important;
   font-weight: bold !important;
 }
+.modal-footer{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center !important;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: center !important;
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+  width: 100% !important;
+}
+.modal-footer>:not(:first-child),.modal-footer>:not(:last-child){
+  width: 25%;
+}

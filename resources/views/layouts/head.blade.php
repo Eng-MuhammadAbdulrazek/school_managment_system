@@ -7,6 +7,7 @@
 @yield('css')
 
 <link href="{{ URL::asset('assets/css/mainTheme.css') }}" rel="stylesheet"> -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
 <!--- Style css -->
 @if (App::getLocale() == 'en')
