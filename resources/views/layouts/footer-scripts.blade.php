@@ -26,10 +26,10 @@
 <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 	{!! Toastr::message() !!}
-<script src="{{ URL::asset('assets/js/toastr.js') }}"></script>
-<!-- validation -->
-<script src="{{ URL::asset('assets/js/validation.js') }}"></script>
+{{-- <script src="{{ URL::asset('assets/js/toastr.js') }}"></script>
+<!-- validation --> --}}
+{{-- <script src="{{ URL::asset('assets/js/validation.js') }}"></script>
 <!-- lobilist -->
-<script src="{{ URL::asset('assets/js/lobilist.js') }}"></script>
+<script src="{{ URL::asset('assets/js/lobilist.js') }}"></script> --}}
 <!-- custom -->
 <script src="{{ URL::asset('assets/js/custom.js') }}"></script>

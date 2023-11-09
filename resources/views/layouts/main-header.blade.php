@@ -29,12 +29,12 @@
               </div>
               
                 <li class="nav-item fullscreen">
-                    <a id="btnFullscreen" href="#" class="nav-link"><i class="ti-fullscreen"></i></a>
+                    <a id="btnFullscreen" href="#" class="nav-link"><i class="fa fa-arrows-alt"></i></a>
                 </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                         aria-expanded="false">
-                        <i class="ti-bell"></i>
+                        <i class="fa fa-bell-o"></i>
                         <span class="badge badge-danger notification-status"> </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-big dropdown-notifications">
@@ -57,7 +57,7 @@
                 </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                        aria-expanded="true"> <i class=" ti-view-grid"></i> </a>
+                        aria-expanded="true"> <i class="fa fa-plus-square"></i> </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-big">
                         <div class="dropdown-header">
                             <strong>Quick Links</strong>

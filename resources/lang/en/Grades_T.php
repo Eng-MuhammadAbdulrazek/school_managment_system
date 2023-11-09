@@ -14,5 +14,8 @@ return [
     'name_ar_required' => 'Arabic Name is Required',
     'name_en_required' => 'English Name is Required',
     'No_Notes' => 'There is no notes',
-
+    'edit' => 'Edit information',
+    'saveEdit' => 'Update',
+    'delete' => 'Delete',
+    'delConf' => 'Are you sure you want to Delete this Grade ?'
 ];

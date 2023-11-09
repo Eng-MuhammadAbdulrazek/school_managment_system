@@ -26,50 +26,64 @@ class SchoolGradesController extends Controller
      */
     public function store(StoreGradeRequest $request)
     {
-        $validated = $request->validated();
-        $Grade = new Grade();
-        $Grade->Name = ['en' => $request->name_en, 'ar' => $request->name_ar];
-        $Notes = '';
-        if( Str::length($request->Notes) > 0){
-        $Grade->Notes = $request->Notes;
+        try{
+            $validated = $request->validated();
+            $Grade = new Grade();
+            $Grade->Name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+            $Notes = '';
+            if( Str::length($request->Notes) > 0){
+            $Grade->Notes = $request->Notes;
+            }
+            else{
+                $Grade->Notes = $Notes;
+            }
+            $Grade->save();
+            Toastr::success(trans('messages.success'), '', ["positionClass" => "toast-bottom-center"]);
+            return redirect()->route('Grades.index');
         }
-        else{
-            $Grade->Notes = $Notes;
+        catch(\Exception $e){
+            return redirect()->back()->withErrors(['error'=> $e->getMessage()]);
         }
-        $Grade->save();
-        Toastr::success(trans('messages.success'), '', ["positionClass" => "toast-bottom-center"]);
-        return redirect()->route('Grades.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Grade $grade)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Grade $grade)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Grade $grade)
+    public function update(StoreGradeRequest $request)
     {
-        //
+        try{
+            $validated = $request->validated();
+            $Grade = Grade::findOrFail($request->id);
+            
+            $Notes = '';
+            if( Str::length($request->Notes) > 0){
+            $Notes = $request->Notes;
+            }
+            else{
+                $Notes = '';
+            }        
+
+            $Grade->update([
+                $Grade->Name = ['en' => $request->name_en, 'ar' => $request->name_ar],
+                $Grade->Notes = $Notes,
+            ]);
+            $Grade->save();
+            Toastr::success(trans('messages.updated'), '', ["positionClass" => "toast-bottom-center"]);
+            return redirect()->route('Grades.index');
+        }
+        catch(\Exception $e){
+            return redirect()->back()->withErrors(['error'=> $e->getMessage()]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Grade $grade)
+    public function destroy(Request $request )
     {
-        //
+        Grade::findOrFail($request->id)->delete();
+        Toastr::success(trans('messages.deleted'), '', ["positionClass" => "toast-bottom-center"]);
+        return redirect()->route('Grades.index');
+
     }
 }
