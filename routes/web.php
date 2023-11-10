@@ -2,19 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Grades\SchoolGradesController;
+use App\Http\Controllers\Classrooms\ClassroomController;
+
 
 Route::group(
     [
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth', 'verified'],
     ],
     function () {
     
         Route::get('/', function () {
             return view('dashboard');
-        })->middleware(['auth', 'verified']);
+        });
 
         Route::resource('Grades', SchoolGradesController::class);
+        Route::resource('Classrooms', ClassroomController::class);
+
 
 
     });

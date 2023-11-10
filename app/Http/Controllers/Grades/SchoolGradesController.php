@@ -26,6 +26,12 @@ class SchoolGradesController extends Controller
      */
     public function store(StoreGradeRequest $request)
     {
+
+        if(Grade::where('Name->ar', $request->name_ar)->orWhere('Name->en',$request->name_en)->exists()){
+            Toastr::error(trans('messages.nameExist'), '', ["positionClass" => "toast-bottom-center"]);
+            return redirect()->route('Grades.index');
+        }
+
         try{
             $validated = $request->validated();
             $Grade = new Grade();
