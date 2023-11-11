@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Classrooms;
 
 use App\Models\Classroom;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\ClassroomRequest;
+use Brian2694\Toastr\Facades\Toastr;
 
 class ClassroomController extends Controller 
 {
@@ -18,17 +20,9 @@ class ClassroomController extends Controller
   public function index()
   {
     $classrooms = Classroom::all();
-    return view('Pages.Classrooms.Classrooms', compact('classrooms'));
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
+    $Grades = Grade::all();
+  
+    return view('Pages.Classrooms.Classrooms', compact('classrooms', 'Grades'));
   }
 
   /**
@@ -36,9 +30,30 @@ class ClassroomController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
+  public function store(ClassroomRequest $request)
   {
-    
+
+    if (Classroom::where('Grade_id', $request->Grade)
+    ->where(function ($query) use ($request) {
+        $query->where('Name->ar', $request->name_ar)
+            ->orWhere('Name->en', $request->name_en);
+    })->exists())
+     {
+            Toastr::error(trans('messages.nameExist'), '', ["positionClass" => "toast-bottom-center"]);
+            return redirect()->route('Classrooms.index');
+        }
+    try{
+      $validated = $request->validated();
+      $classroom = new Classroom();
+      $classroom->Name = ['en' => $request->name_en, 'ar' => $request->name_ar];
+      $classroom->Grade_id = $request->Grade;
+      $classroom->save();
+      Toastr::success(trans('messages.success'), '', ["positionClass" => "toast-bottom-center"]);
+      return redirect()->route('Classrooms.index');
+    }
+    catch(\Exception $e){
+      return redirect()->back()->withErrors(['error'=> $e->getMessage()]);
+    }
   }
 
   /**

@@ -2,7 +2,7 @@
 @section('css')
 
 @section('title')
-{{ trans('Grades_T.schoolGradesList') }}
+{{ trans('mainSideBar.ClassroomsList') }}
 @stop
 @endsection
 @section('page-header')
@@ -10,7 +10,7 @@
 <div class="page-title">
     <div class="row">
         <div class="col-sm-6">
-            <h4 class="mb-0">{{ trans('Grades_T.schoolGradesList') }}
+            <h4 class="mb-0">{{ trans('mainSideBar.ClassroomsList') }}
 			</h4>
         </div>
         <div class="col-sm-6">
@@ -39,15 +39,15 @@
 				</div>
 				@endif
 				<div class="AddBTN">
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal"><i class="fa fa-plus"></i>	<span style="margin-right:10px;"> </span>{{ trans('Grades_T.AddGrade') }}</button>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal"><i class="fa fa-plus"></i>	<span style="margin-right:10px;"> </span>{{ trans('Classrooms.AddClass') }}</button>
 				</div>
 				<table class="table table-bordered table-hover">
 					<thead class="thead-dark">
 					  <tr>
 						<th scope="col" style="width: 10%;">#</th>
-						<th scope="col" style="width: 40%;">{{ trans('Grades_T.GradeName') }}</th>
-						<th scope="col" style="width: 35%;">{{ trans('Grades_T.Notes') }}</th>
-						<th scope="col" style="width: 15%;">{{ trans('Grades_T.Processes') }}</th>
+						<th scope="col" style="width: 40%;">{{ trans('Classrooms.ClassName') }}</th>
+						<th scope="col" style="width: 35%;">{{ trans('Classrooms.GradeName') }}</th>
+						<th scope="col" style="width: 15%;">{{ trans('Classrooms.Processes') }}</th>
 					  </tr>
 					</thead>
 					<tbody>
@@ -55,26 +55,14 @@
 					@php
 					$i=0;	
 					@endphp
-					{{-- @foreach ($classrooms as $Classroom)
+					@foreach ($classrooms as $Classroom)
 						@php
 						$i++;	
 						@endphp
 					<tr>
 						<th scope="row">{{ $i }}</th>
 						<td>{{ $Classroom->Name }}</td>
-						<td>
-							@php
-								if(strlen($Classroom->Notes) > 0 )
-								{
-									echo $Classroom->Notes;
-								}
-								else {
-									echo trans('Grades_T.No_Notes');
-								}
-							@endphp
-							
-						
-						</td>
+						<td>{{ $Grades->Where('id',$Classroom->Grade_id)->first()->getTranslation('Name',LaravelLocalization::getCurrentLocale()) }}</td>
 						<td class="processCol">
 							<button type="button" data-toggle="modal" data-target="#edit{{ $Classroom->id }}" class="btn btn-success"><i class="fa fa-pencil"></i></button>
 							<button type="button" data-toggle="modal" data-target="#delete{{ $Classroom->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></button>
@@ -162,10 +150,10 @@
 					</div>
 					<!-- Modal closed -->
 						
-					@endforeach --}}
-					{{-- @if (count($Classrooms) == 0)
+					@endforeach 
+					 @if (count($classrooms) == 0)
 					<td colspan="4" style="text-align:center">{{ trans('Grades_T.NoData') }}</td>
-					@endif --}}
+					@endif
 					</tbody>
 				  </table>
 				  
@@ -179,36 +167,41 @@
 	<div class="modal-dialog " role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
-		  <h5 class="modal-title">{{ trans('Grades_T.AddGrade') }}</h5>
+		  <h5 class="modal-title">{{ trans('Classrooms.AddClass') }}</h5>
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
 		  </button>
 		</div>
 		<div class="modal-body">
-			<form action="{{  route('Grades.store') }}" method="POST">
+			<form action="#" method="POST">
 				@csrf
 				<div class="row">
 				  <div class="col">
-					<label for="name_en">{{ trans('Grades_T.name_en') }}</label>
+					<label for="name_en">{{ trans('Classrooms.name_en') }}</label>
 					<input id="name_en" name="name_en" type="text" class="form-control" placeholder="" required>
 				  </div>
 				  <div class="col">
-					<label for="name_ar">{{ trans('Grades_T.name_ar') }}</label>
+					<label for="name_ar">{{ trans('Classrooms.name_ar') }}</label>
 					<input id="name_ar" name="name_ar" type="text" class="form-control" placeholder="" required>
 				  </div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col">
-					<label for="NotesTextArea">{{ trans('Grades_T.Notes') }}</label>
-					<textarea class="form-control" name="Notes" id="NotesTextArea" rows="3"></textarea>
+					<label for="Grade">{{ trans('Classrooms.GradeName') }}</label>
+					<br>
+					<select class="form-select form-control" name="Grade">
+						@foreach ($Grades as $Grade)
+						<option value="{{$Grade->id}}">{{ $Grade->Name }}</option>
+						@endforeach
+					  </select>
 					</div>
 				</div>
 				<br>
 				<div class="row" style="width:100% !important">
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
-						<input type="submit" class="btn btn-success" value="{{ trans('Grades_T.AddNew') }}">
+						<input type="submit" class="btn btn-success" value="{{ trans('Classrooms.AddClass') }}">
 					  </div>
 				</div>
 			</form>

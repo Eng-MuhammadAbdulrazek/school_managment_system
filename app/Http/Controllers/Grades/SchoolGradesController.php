@@ -18,6 +18,7 @@ class SchoolGradesController extends Controller
     public function index()
     {
         $Grades = Grade::all();
+        
         return view('Pages.Grades.Grades', compact('Grades'));
     }
 

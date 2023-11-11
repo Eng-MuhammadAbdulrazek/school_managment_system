@@ -25,19 +25,18 @@
                         </a>
                         <ul id="elements" class="collapse" data-parent="#sidebarnav">
                             <li><a href="{{ route('Grades.index') }}">{{ trans('MainSideBar.schoolGradesList') }}</a></li>
-                       
                         </ul>
                     </li>
                             <!-- menu item Elements-->
                                 <li>
-                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
+                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements2">
                                         <div class="pull-left"><i class="fa fa-building"></i><span
                                                 class="right-nav-text">{{ trans('mainSideBar.Classes') }}</span></div>
                                         <div class="pull-right"><i class="fa fa-plus"></i></div>
                                         <div class="clearfix"></div>
                                     </a>
-                                    <ul id="elements" class="collapse" data-parent="#sidebarnav">
-                                        <li><a href="#">lorem ipsum</a></li>
+                                    <ul id="elements2" class="collapse" data-parent="#sidebarnav">
+                                        <li><a href="{{ route('Classrooms.index') }}">{{ trans('MainSideBar.ClassroomsList') }}</a></li>
                                     </ul>
                                 </li>
                                 <li>

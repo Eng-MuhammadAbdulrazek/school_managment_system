@@ -16,4 +16,5 @@ return [
     'Online' => 'Online Classes',
     'Settings' => 'Settings',
     'Users' => 'Users',
+    'ClassroomsList' => 'Classroom List',
 ];
