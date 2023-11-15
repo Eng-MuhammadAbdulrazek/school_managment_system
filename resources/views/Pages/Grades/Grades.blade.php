@@ -76,13 +76,13 @@
 						
 						</td>
 						<td class="processCol">
-							<button type="button" data-toggle="modal" data-target="#edit{{ $Grade->id }}" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-							<button type="button" data-toggle="modal" data-target="#delete{{ $Grade->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+							<button type="button" data-toggle="modal" data-target="#edit{{ $Grade->id }}" class="btn btn-success PButton"><i class="fa fa-pencil"></i></button>
+							<button type="button" data-toggle="modal" data-target="#delete{{ $Grade->id }}" class="btn btn-danger PButton"><i class="fa fa-trash"></i></button>
 						</td>
 					</tr>
 					<!-- Edit Modal -->
 					<div class="modal fade" id="edit{{ $Grade->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-						<div class="modal-dialog " role="document">
+						<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
 							<h5 class="modal-title">{{ trans('Grades_T.edit') }}</h5>
@@ -109,7 +109,7 @@
 									<div class="row">
 										<div class="col">
 										<label for="NotesTextArea">{{ trans('Grades_T.Notes') }}</label>
-										<textarea class="form-control" name="Notes" id="NotesTextArea" rows="3">{{ $Grade->Notes }}</textarea>
+										<textarea class="form-control Notes" name="Notes" id="NotesTextArea" rows="3">{{ $Grade->Notes }}</textarea>
 										</div>
 									</div>
 									<br>
@@ -128,7 +128,7 @@
 					<!-- Modal closed -->
 					<!-- del Modal -->
 					<div class="modal fade" id="delete{{ $Grade->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-						<div class="modal-dialog " role="document">
+						<div class="modal-dialog modal-lg" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
 							<h5 class="modal-title">{{ trans('Grades_T.delete') }}</h5>
@@ -176,7 +176,7 @@
 </div>
 <!-- ADD Modal -->
 <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog " role="document">
+	<div class="modal-dialog modal-lg" role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
 		  <h5 class="modal-title">{{ trans('Grades_T.AddGrade') }}</h5>
@@ -201,7 +201,7 @@
 				<div class="row">
 					<div class="col">
 					<label for="NotesTextArea">{{ trans('Grades_T.Notes') }}</label>
-					<textarea class="form-control" name="Notes" id="NotesTextArea" rows="3"></textarea>
+					<textarea class="form-control Notes" name="Notes" id="NotesTextArea" rows="3"></textarea>
 					</div>
 				</div>
 				<br>

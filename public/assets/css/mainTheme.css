@@ -132,8 +132,9 @@ footer a{
   font-family: Cairo;
 }
 .form-control {
+  font-weight:bold !important;
   font-size: 14px !important;
-  height: auto !important;
+  height: 50px !important;
   line-height: 1.33333 !important;
   padding: 10px 15px 10px 15px !important;
   background-color: white !important;
@@ -165,4 +166,35 @@ label{
 }
 .table-hover tbody tr:hover{
   background-color: rgb(168 197 255 / 18%) !important;
+}
+.modal-body{
+  padding-right: 2rem !important;
+  padding-left: 2rem !important;
+}
+.btn{
+  height:50px !important;
+  width: 120px !important;
+  font-weight: bold !important;
+}
+.PButton{
+  width: auto !important;
+  height: auto !important;
+}
+.table td{
+  font-weight: bold;
+}
+.form-row>.col, .form-row>[class*=col-]{
+  align-self: center !important;
+}
+.form-row:not(:first-child){
+  margin-top: 20px;
+}
+.navbar-nav:lang(ar){
+  margin-left: unset !important;
+}
+.navbar-nav:lang(en){
+  margin-right: unset !important;
+}
+.Notes{
+  height: auto !important;
 }

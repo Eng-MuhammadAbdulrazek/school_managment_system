@@ -4,8 +4,8 @@ return [
     'Dashboard' => 'الرئيسية',
     'schoolGrades' => 'المراحل الدراسية',
     'schoolGradesList' => 'قائمة المراحل الدراسية',
-    'Classes' => 'الفصول',
-    'sections' => 'الأقسام',
+    'Classes' => 'الصفوف',
+    'sections' => 'الفصول',
     'students' => 'الطلاب',
     'teachers' => 'المعلمين',
     'parents' => 'أولياء الأمور',
@@ -16,6 +16,6 @@ return [
     'Online' => 'حصص اونلاين',
     'Settings' => 'الاعدادات',
     'Users' => 'المستحدمين',
-    'ClassroomsList' => 'قائمة الفصول الدراسية',
+    'ClassroomsList' => 'قائمة الصفوف الدراسية',
 
 ];

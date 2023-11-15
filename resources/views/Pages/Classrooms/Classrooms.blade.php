@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('css')
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 @section('title')
 {{ trans('mainSideBar.ClassroomsList') }}
@@ -64,55 +65,71 @@
 						<td>{{ $Classroom->Name }}</td>
 						<td>{{ $Grades->Where('id',$Classroom->Grade_id)->first()->getTranslation('Name',LaravelLocalization::getCurrentLocale()) }}</td>
 						<td class="processCol">
-							<button type="button" data-toggle="modal" data-target="#edit{{ $Classroom->id }}" class="btn btn-success"><i class="fa fa-pencil"></i></button>
-							<button type="button" data-toggle="modal" data-target="#delete{{ $Classroom->id }}" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+							<button type="button" data-toggle="modal" data-target="#edit{{ $Classroom->id }}" class="btn btn-success PButton"><i class="fa fa-pencil"></i></button>
+							<button type="button" data-toggle="modal" data-target="#delete{{ $Classroom->id }}" class="btn btn-danger PButton"><i class="fa fa-trash"></i></button>
 						</td>
 					</tr>
-					<!-- Edit Modal -->
 					<div class="modal fade" id="edit{{ $Classroom->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-						<div class="modal-dialog " role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-							<h5 class="modal-title">{{ trans('Grades_T.edit') }}</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							</div>
-							<div class="modal-body">
-								<form action="{{ route('Grades.update','test') }}" method="POST">
-									{{ method_field('patch') }}
-									@csrf
-									<div class="row">
-									<div class="col">
-										<input type="hidden" name="id" id="id" value="{{ $Classroom->id }}">
-										<label for="name_en">{{ trans('Grades_T.name_en') }}</label>
-										<input id="name_en" name="name_en" type="text" class="form-control" value="{{ $Classroom->getTranslation('Name', 'en') }}" required>
-									</div>
-									<div class="col">
-										<label for="name_ar">{{ trans('Grades_T.name_ar') }}</label>
-										<input id="name_ar" name="name_ar" type="text" class="form-control" value="{{ $Classroom->getTranslation('Name', 'ar') }}" required>
-									</div>
-									</div>
-									<br>
-									<div class="row">
-										<div class="col">
-										<label for="NotesTextArea">{{ trans('Grades_T.Notes') }}</label>
-										<textarea class="form-control" name="Notes" id="NotesTextArea" rows="3">{{ $Classroom->Notes }}</textarea>
+						<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">{{ trans('Classrooms.editData') }}</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form action="{{ route('Classrooms.update','test') }}" method="POST" id="editForm" class="">
+										{{ method_field('patch') }}
+										@csrf
+										<div id="">
+											<!-- Initial form row -->
+											<div class="form-row">
+												
+												<div class="col-4">
+													<label for="name_en">{{ trans('Classrooms.name_en') }}</label>
+													<input name="name_en" type="text" class="form-control" placeholder="" required value="{{  $Classroom->getTranslation('Name','en')}}">
+													<input type="hidden" name="id" value="{{ $Classroom->id }}">
+												</div>
+												<div class="col-4">
+													<label for="name_ar">{{ trans('Classrooms.name_ar') }}</label>
+													<input name="name_ar" type="text" class="form-control" placeholder="" required value="{{ $Classroom->getTranslation('Name','ar')}}">
+												</div>
+												<div class="col-3">
+													<label for="Grade">{{ trans('Classrooms.GradeName') }}</label>
+													<br>
+													<select class="form-select form-control" name="Grade">
+														@foreach ($Grades as $Grade)
+														@if ($Classroom->Grade_id == $Grade->id)
+														<option value="{{$Grade->id}}" selected>{{ $Grade->Name }}</option>
+														@continue
+														@endif
+														<option value="{{$Grade->id}}">{{ $Grade->Name }}</option>
+														@endforeach
+													</select>
+												</div>
+											
+											</div>
 										</div>
-									</div>
-									<br>
-									<div class="row" style="width:100% !important">
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
-											<input type="submit" class="btn btn-success" value="{{ trans('Grades_T.saveEdit') }}">
+										<br>
+										<br>
+										<div class="row" style="width:100% !important">
+											
 										</div>
-									</div>
-								</form>
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
+									</button>
+									<input type="submit" id="submitForm2" class="btn btn-success" value="{{ trans('Classrooms.editData') }}">
+								</div>
+							</form>
 							</div>
-							
-						</div>
 						</div>
 					</div>
+					
+			
 					<!-- Modal closed -->
 					<!-- del Modal -->
 					<div class="modal fade" id="delete{{ $Classroom->id }}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -125,13 +142,13 @@
 							</button>
 							</div>
 							<div class="modal-body">
-								<form action="{{ route('Grades.destroy','test') }}" method="POST">
+								<form action="{{ route('Classrooms.destroy','test') }}" method="POST">
 									{{ method_field('Delete') }}
 									@csrf
 									<div class="row">
 										<div class="col">
 											<input type="hidden" name="id" id="id" value="{{ $Classroom->id }}">
-											<span style="font-size: 16px">{{ trans('Grades_T.delConf') }}</span>
+											<span style="font-size: 16px">{{ trans('Classrooms.delConf') }}</span>
 										</div>
 									</div>
 									
@@ -164,54 +181,118 @@
 </div>
 <!-- ADD Modal -->
 <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog " role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title">{{ trans('Classrooms.AddClass') }}</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-			<form action="#" method="POST">
-				@csrf
-				<div class="row">
-				  <div class="col">
-					<label for="name_en">{{ trans('Classrooms.name_en') }}</label>
-					<input id="name_en" name="name_en" type="text" class="form-control" placeholder="" required>
-				  </div>
-				  <div class="col">
-					<label for="name_ar">{{ trans('Classrooms.name_ar') }}</label>
-					<input id="name_ar" name="name_ar" type="text" class="form-control" placeholder="" required>
-				  </div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col">
-					<label for="Grade">{{ trans('Classrooms.GradeName') }}</label>
-					<br>
-					<select class="form-select form-control" name="Grade">
-						@foreach ($Grades as $Grade)
-						<option value="{{$Grade->id}}">{{ $Grade->Name }}</option>
-						@endforeach
-					  </select>
-					</div>
-				</div>
-				<br>
-				<div class="row" style="width:100% !important">
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
-						<input type="submit" class="btn btn-success" value="{{ trans('Classrooms.AddClass') }}">
-					  </div>
-				</div>
-			</form>
-		</div>
-		
-	  </div>
-	</div>
-  </div>
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ trans('Classrooms.AddClass') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('Classrooms.store') }}" method="POST" id="repeaterForm" class="">
+                    @csrf
+                    <div id="repeaterContainer">
+                        <!-- Initial form row -->
+                        <div class="form-row">
+                            <div class="col-4">
+                                <label for="name_en">{{ trans('Classrooms.name_en') }}</label>
+                                <input name="name_en[]" type="text" class="form-control" placeholder="" required>
+                            </div>
+                            <div class="col-4">
+                                <label for="name_ar">{{ trans('Classrooms.name_ar') }}</label>
+                                <input name="name_ar[]" type="text" class="form-control" placeholder="" required>
+                            </div>
+                            <div class="col-3">
+                                <label for="Grade">{{ trans('Classrooms.GradeName') }}</label>
+                                <br>
+                                <select class="form-select form-control" name="Grade[]">
+                                    @foreach ($Grades as $Grade)
+                                    <option value="{{$Grade->id}}">{{ $Grade->Name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn btn-danger removeRow PButton" hidden><i
+                                        class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row" style="width:100% !important">
+                        
+                    </div>
+                </form>
+            </div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
+				<button type="button" class="btn btn-secondary" id="addRow">{{ trans('Classrooms.AddRow') }}
+				</button>
+				<input type="submit" id="submitForm" class="btn btn-success" value="{{ trans('Classrooms.AddClass') }}">
+			</div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal closed -->
 @endsection
 @section('js')
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Function to add repeater row
+        $("#addRow").on("click", function () {
+            addRepeaterRow();
+        });
+
+        // Function to remove repeater row
+        $("#repeaterContainer").on("click", ".removeRow", function () {
+            $(this).closest(".form-row").remove();
+        });
+
+        function addRepeaterRow() {
+            var rowHTML = '<div class="form-row">' +
+				'<br><br>' +
+                '<div class="col-4">' +
+                '<label for="name_en">{{ trans('Classrooms.name_en') }}</label>' +
+                '<input name="name_en[]" type="text" class="form-control" placeholder="" required>' +
+                '</div>' +
+                '<div class="col-4">' +
+                '<label for="name_ar">{{ trans('Classrooms.name_ar') }}</label>' +
+                '<input name="name_ar[]" type="text" class="form-control" placeholder="" required>' +
+                '</div>' +
+                '<div class="col-3">' +
+                '<label for="Grade">{{ trans('Classrooms.GradeName') }}</label>' +
+                '<br>' +
+                '<select class="form-select form-control" name="Grade[]">' +
+                '@foreach ($Grades as $Grade)' +
+                '<option value="{{$Grade->id}}">{{ $Grade->Name }}</option>' +
+                '@endforeach' +
+                '</select>' +
+                '</div>' +
+                '<div class="col-1">' +
+				'<label for="x" style="visibility:hidden">.</label>' +
+				'<br>' +
+                '<button name="x" type="button" class="btn btn-danger removeRow PButton"><i class="fa fa-trash"></button>' +
+                '</div>' +
+                '</div>';
+
+            $("#repeaterContainer").append(rowHTML);
+        }
+        // Function to serialize and submit the form
+        $("#submitForm").on("click", function () {
+            var formData = $("#repeaterForm").serialize();
+         //   console.log(formData);
+            // Uncomment the line below to submit the form
+             $("#repeaterForm").submit();
+        });
 	
+		
+    });
+
+</script>
 @endsection
