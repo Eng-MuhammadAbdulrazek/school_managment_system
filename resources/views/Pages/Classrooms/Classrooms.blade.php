@@ -1,6 +1,15 @@
 @extends('layouts.master')
 @section('css')
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<!-- Include DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+<!-- Include DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
 @section('title')
 {{ trans('mainSideBar.ClassroomsList') }}
@@ -42,10 +51,11 @@
 				<div class="AddBTN">
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal"><i class="fa fa-plus"></i>	<span style="margin-right:10px;"> </span>{{ trans('Classrooms.AddClass') }}</button>
 				</div>
-				<table class="table table-bordered table-hover">
+				<table class="table table-bordered table-hover" id="mydatatable">
 					<thead class="thead-dark">
 					  <tr>
-						<th scope="col" style="width: 10%;">#</th>
+						<th scope="col" style="width: 5%;"><input type="checkbox" id="checkAll"></th>
+						<th scope="col" style="width: 5%;">#</th>
 						<th scope="col" style="width: 40%;">{{ trans('Classrooms.ClassName') }}</th>
 						<th scope="col" style="width: 35%;">{{ trans('Classrooms.GradeName') }}</th>
 						<th scope="col" style="width: 15%;">{{ trans('Classrooms.Processes') }}</th>
@@ -61,6 +71,7 @@
 						$i++;	
 						@endphp
 					<tr>
+						<th><input type="checkbox" class="select-checkbox"></th>
 						<th scope="row">{{ $i }}</th>
 						<td>{{ $Classroom->Name }}</td>
 						<td>{{ $Grades->Where('id',$Classroom->Grade_id)->first()->getTranslation('Name',LaravelLocalization::getCurrentLocale()) }}</td>
@@ -291,7 +302,40 @@
              $("#repeaterForm").submit();
         });
 	
+		var table = new DataTable('#mydatatable',{
+			"pageLength": 12,
+			select: {
+				items: 'row',
+				style: 'multi',
+          	    selector: '.select-checkbox'
+			},
+			language: {
+				@if (LaravelLocalization::getCurrentLocale() == 'ar')
+					url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/ar.json',
+				@else
+					url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/en-GB.json',
+				@endif
+
+    		},
+		});
 		
+		  // Handle 'Select All' checkbox click
+		  $('#checkAll').on('click', function() {
+        var rows = table.rows({ page: 'current' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        table.rows({ page: 'current' }).select(this.checked);
+    });
+
+    // Handle individual checkbox click
+    $('#mydatatable tbody').on('click', 'input[type="checkbox"]', function() {
+        if (!this.checked) {
+            var el = $('#checkAll').get(0);
+            if (el && el.checked && ('indeterminate' in el)) {
+                el.indeterminate = true;
+            }
+        }
+    });
+
     });
 
 </script>

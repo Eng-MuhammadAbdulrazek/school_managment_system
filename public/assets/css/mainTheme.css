@@ -198,3 +198,10 @@ label{
 .Notes{
   height: auto !important;
 }
+.select-info,.dataTables_length{
+  display: none !important;
+}
+.pagination .page-item.active .page-link{
+  background-color: #013156 !important;
+  border-color: #013156 !important;
+}

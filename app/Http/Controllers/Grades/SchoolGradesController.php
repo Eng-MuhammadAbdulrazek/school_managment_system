@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Grades;
 
 use App\Models\Grade;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreGradeRequest;
 use App\Http\Controllers\Controller;
@@ -88,9 +89,17 @@ class SchoolGradesController extends Controller
      */
     public function destroy(Request $request )
     {
-        Grade::findOrFail($request->id)->delete();
-        Toastr::success(trans('messages.deleted'), '', ["positionClass" => "toast-bottom-center"]);
-        return redirect()->route('Grades.index');
 
+        $Classes_IDs = Classroom::where('Grade_id', $request->id)->pluck('id'); 
+        // dd($Classes_IDs);
+        if($Classes_IDs->count() == 0){
+            Grade::findOrFail($request->id)->delete();
+            Toastr::success(trans('messages.deleted'), '', ["positionClass" => "toast-bottom-center"]);
+            return redirect()->route('Grades.index');
+        }
+       else{
+        Toastr::error(trans('messages.Grade_Classes_Error'), '', ["positionClass" => "toast-bottom-center"]);
+        return redirect()->route('Grades.index');
+       }
     }
 }
