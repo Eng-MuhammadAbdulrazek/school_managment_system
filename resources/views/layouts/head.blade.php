@@ -7,7 +7,10 @@
 @yield('css')
 
 <link href="{{ URL::asset('assets/css/mainTheme.css') }}" rel="stylesheet"> -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/toastr.min.css') }}">
+<link href="{{ asset('assets/css/plugins/bootstrap.min.css') }}" rel="stylesheet">
+<!-- Include DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/plugins/dataTables.bootstrap4.min.css') }}">
 
 <!--- Style css -->
 @if (App::getLocale() == 'en')

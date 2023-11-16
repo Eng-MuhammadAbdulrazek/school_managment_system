@@ -1,15 +1,6 @@
 @extends('layouts.master')
 @section('css')
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<!-- Include DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
-<!-- Include DataTables JS -->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+
 
 @section('title')
 {{ trans('mainSideBar.ClassroomsList') }}
@@ -48,9 +39,17 @@
 					</ul>
 				</div>
 				@endif
-				<div class="AddBTN">
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal"><i class="fa fa-plus"></i>	<span style="margin-right:10px;"> </span>{{ trans('Classrooms.AddClass') }}</button>
+
+				<div class="row mainOptionRow">
+					<div class="AddBTN">
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal"><i class="fa fa-plus"></i><span style="margin-right:10px;"></span>{{ trans('Classrooms.AddClass') }}</button>
+					</div>
+					<div class="checkBoxButton">
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i><span style="margin-right:10px;"></span>{{ trans('Classrooms.deleteRows') }}</button>
+					</div>
 				</div>
+				
+
 				<table class="table table-bordered table-hover" id="mydatatable">
 					<thead class="thead-dark">
 					  <tr>
@@ -71,8 +70,9 @@
 						$i++;	
 						@endphp
 					<tr>
-						<th><input type="checkbox" class="select-checkbox"></th>
-						<th scope="row">{{ $i }}</th>
+						<th scope="row"><input type="checkbox" class="select-checkbox" value="{{ $Classroom->id }}"></th>
+						
+						<th>{{ $i }}</th>
 						<td>{{ $Classroom->Name }}</td>
 						<td>{{ $Grades->Where('id',$Classroom->Grade_id)->first()->getTranslation('Name',LaravelLocalization::getCurrentLocale()) }}</td>
 						<td class="processCol">
@@ -250,22 +250,21 @@
 <!-- Modal closed -->
 @endsection
 @section('js')
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ asset('assets/js/popper/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script>
     $(document).ready(function () {
         // Function to add repeater row
-        $("#addRow").on("click", function () {
+         $("#addRow").on("click", function () {
             addRepeaterRow();
-        });
+         });
 
-        // Function to remove repeater row
-        $("#repeaterContainer").on("click", ".removeRow", function () {
-            $(this).closest(".form-row").remove();
-        });
+         // Function to remove repeater row
+         $("#repeaterContainer").on("click", ".removeRow", function () {
+             $(this).closest(".form-row").remove();
+         });
 
-        function addRepeaterRow() {
+         function addRepeaterRow() {
             var rowHTML = '<div class="form-row">' +
 				'<br><br>' +
                 '<div class="col-4">' +
@@ -293,17 +292,18 @@
                 '</div>';
 
             $("#repeaterContainer").append(rowHTML);
-        }
+         }
         // Function to serialize and submit the form
-        $("#submitForm").on("click", function () {
+         $("#submitForm").on("click", function () {
             var formData = $("#repeaterForm").serialize();
          //   console.log(formData);
             // Uncomment the line below to submit the form
              $("#repeaterForm").submit();
-        });
-	
-		var table = new DataTable('#mydatatable',{
+         });
+		
+		 var table = $('#mydatatable').DataTable({
 			"pageLength": 12,
+			ordering:false,
 			select: {
 				items: 'row',
 				style: 'multi',
@@ -311,32 +311,25 @@
 			},
 			language: {
 				@if (LaravelLocalization::getCurrentLocale() == 'ar')
-					url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/ar.json',
+					url: '{{ asset('assets/dataTableLang/ar.json') }}',
 				@else
-					url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/en-GB.json',
+					url: '{{ asset('assets/dataTableLang/en-GB.json') }}',
 				@endif
 
     		},
-		});
-		
+		 });
+
 		  // Handle 'Select All' checkbox click
 		  $('#checkAll').on('click', function() {
-        var rows = table.rows({ page: 'current' }).nodes();
-        $('input[type="checkbox"]', rows).prop('checked', this.checked);
-        table.rows({ page: 'current' }).select(this.checked);
-    });
-
-    // Handle individual checkbox click
-    $('#mydatatable tbody').on('click', 'input[type="checkbox"]', function() {
-        if (!this.checked) {
-            var el = $('#checkAll').get(0);
-            if (el && el.checked && ('indeterminate' in el)) {
-                el.indeterminate = true;
-            }
-        }
-    });
+			
+			});
+		  //  single check
+		  $('.select-checkbox').on('click', function() {
+				
+				
+			});
 
     });
-
+	
 </script>
 @endsection

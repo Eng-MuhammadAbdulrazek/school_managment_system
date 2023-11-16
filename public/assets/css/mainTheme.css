@@ -173,7 +173,7 @@ label{
 }
 .btn{
   height:50px !important;
-  width: 120px !important;
+  width: auto;
   font-weight: bold !important;
 }
 .PButton{
@@ -204,4 +204,10 @@ label{
 .pagination .page-item.active .page-link{
   background-color: #013156 !important;
   border-color: #013156 !important;
+}
+.mainOptionRow{
+  display: flex;
+  justify-content: space-between !important;
+  padding-right: 2rem !important;
+  padding-left: 2rem !important;
 }

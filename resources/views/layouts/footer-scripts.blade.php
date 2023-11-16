@@ -1,11 +1,13 @@
-<!-- jquery -->
-<script src="{{ URL::asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+<!-- Include jQuery -->
+<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+<!-- Include DataTables JS -->
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/js/bootstrap-datatables/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/js/bootstrap-datatables/dataTables.bootstrap4.min.js') }}"></script>
 <!-- plugins-jquery -->
 <script src="{{ URL::asset('assets/js/plugins-jquery.js') }}"></script>
 <!-- plugin_path -->
 <script>
     var plugin_path = 'js/';
-
 </script>
 
 <!-- chart -->
@@ -22,9 +24,7 @@
 <script src="{{ URL::asset('assets/js/sweetalert2.js') }}"></script>
 <!-- toastr -->
 @yield('js')
-
-<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-	<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+	<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 	{!! Toastr::message() !!}
 {{-- <script src="{{ URL::asset('assets/js/toastr.js') }}"></script>
 <!-- validation --> --}}

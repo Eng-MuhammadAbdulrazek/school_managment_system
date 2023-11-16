@@ -10,5 +10,5 @@ return [
     'AddRow'=>'Add Entry',
     "editData" => 'Edit Information',
     'delConf' => 'Are You Sure you want to Delete This Class',
-
+    'deleteRows' => 'Delete Selected Rows',
 ];
