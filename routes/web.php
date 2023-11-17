@@ -18,6 +18,8 @@ Route::group(
 
         Route::resource('Grades', SchoolGradesController::class);
         Route::resource('Classrooms', ClassroomController::class);
+        Route::delete('/classrooms/destroySelected', [ClassroomController::class, 'destroySelected'])->name('classrooms.destroySelected');
+
 
 
 

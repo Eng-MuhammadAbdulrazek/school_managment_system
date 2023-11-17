@@ -9,6 +9,7 @@ return [
     'name_ar'=>'Classroom Name in Arabic',
     'AddRow'=>'Add Entry',
     "editData" => 'Edit Information',
-    'delConf' => 'Are You Sure you want to Delete This Class',
+    'delConf' => 'Are you sure you want to delete this class ?',
+    'delConfSel'=>'Are you sure you want to delete selected classes ?',
     'deleteRows' => 'Delete Selected Rows',
 ];

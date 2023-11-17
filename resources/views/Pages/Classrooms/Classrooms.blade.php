@@ -45,7 +45,7 @@
 						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal"><i class="fa fa-plus"></i><span style="margin-right:10px;"></span>{{ trans('Classrooms.AddClass') }}</button>
 					</div>
 					<div class="checkBoxButton">
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#"><i class="fa fa-trash"></i><span style="margin-right:10px;"></span>{{ trans('Classrooms.deleteRows') }}</button>
+						<button type="button" class="btn btn-danger" id="deleteSelected" data-toggle="modal" data-target="#deleteSelectedModal" disabled><i class="fa fa-trash"></i><span style="margin-right:10px;"></span>{{ trans('Classrooms.deleteRows') }}</button>
 					</div>
 				</div>
 				
@@ -71,7 +71,6 @@
 						@endphp
 					<tr>
 						<th scope="row"><input type="checkbox" class="select-checkbox" value="{{ $Classroom->id }}"></th>
-						
 						<th>{{ $i }}</th>
 						<td>{{ $Classroom->Name }}</td>
 						<td>{{ $Grades->Where('id',$Classroom->Grade_id)->first()->getTranslation('Name',LaravelLocalization::getCurrentLocale()) }}</td>
@@ -246,7 +245,40 @@
         </div>
     </div>
 </div>
-
+<!-- Modal closed -->
+<!-- del selected Modal -->
+<div class="modal fade" id="deleteSelectedModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog " role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+		<h5 class="modal-title">{{ trans('Grades_T.delete') }}</h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		</div>
+		<div class="modal-body">
+			<form id="deleteForm" action="{{ route('classrooms.destroySelected') }}" method="POST">
+				{{ method_field('Delete') }}
+				@csrf
+				<div class="row">
+					<div class="col">
+						<input type="hidden" name="selected" id="selected">
+						<span style="font-size: 16px">{{ trans('Classrooms.delConfSel') }}</span>
+					</div>
+				</div>
+				<br>
+				<div class="row" style="width:100% !important">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
+						<input type="submit" class="btn btn-danger" value="{{ trans('Grades_T.delete') }}">
+					</div>
+				</div>
+			</form>
+		</div>
+		
+	</div>
+	</div>
+</div>
 <!-- Modal closed -->
 @endsection
 @section('js')
@@ -254,6 +286,7 @@
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script>
     $(document).ready(function () {
+		
         // Function to add repeater row
          $("#addRow").on("click", function () {
             addRepeaterRow();
@@ -319,17 +352,56 @@
     		},
 		 });
 
-		  // Handle 'Select All' checkbox click
-		  $('#checkAll').on('click', function() {
-			
-			});
-		  //  single check
-		  $('.select-checkbox').on('click', function() {
-				
-				
-			});
+		 var selectedValues = [];
 
-    });
+		// Handle 'Select All' checkbox click
+		$('#checkAll').on('click', function() {
+			$('.select-checkbox').prop('checked', this.checked);
+			
+			if (this.checked) {
+				// Add all values to the list
+				selectedValues = $('.select-checkbox:checked').map(function() {
+					return $(this).val();
+				}).get();
+			} else {
+				// Clear the list if 'Select All' is unchecked
+				selectedValues = [];
+			}
+
+			updateSelectedValues();
+		});
+
+		// Handle individual checkbox click
+		$('.select-checkbox').on('click', function() {
+			var value = $(this).val();
+
+			if (this.checked) {
+				// Add the value to the list if checked
+				selectedValues.push(value);
+			} else {
+				// Remove the value from the list if unchecked
+				var index = selectedValues.indexOf(value);
+				if (index !== -1) {
+					selectedValues.splice(index, 1);
+				}
+			}
+
+			updateSelectedValues();
+			
+		});
+
+		// Function to update the selected values display
+		function updateSelectedValues() {
+
+			// Enable or disable the button based on whether any checkbox is checked
+			$('#deleteSelected').prop('disabled', selectedValues.length === 0);
+
+			// Set the selected values in the hidden field of the form
+			$('#deleteForm #selected').val(selectedValues.join(', '));
+
+			}
+		});
+
 	
 </script>
 @endsection
