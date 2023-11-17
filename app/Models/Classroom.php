@@ -19,5 +19,9 @@ class Classroom extends Model
     {
         return $this->hasOne('Grade', 'Grade_id');
     }
+    public function Sections()
+    {
+        return $this->hasMany('Section', 'class_id');
+    }
 
 }

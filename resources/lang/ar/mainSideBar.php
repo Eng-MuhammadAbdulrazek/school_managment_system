@@ -5,7 +5,9 @@ return [
     'schoolGrades' => 'المراحل الدراسية',
     'schoolGradesList' => 'قائمة المراحل الدراسية',
     'Classes' => 'الصفوف',
+    'ClassroomsList' => 'قائمة الصفوف الدراسية',
     'sections' => 'الفصول',
+    'sectionsList' => 'قائمة الفصول الدراسية',
     'students' => 'الطلاب',
     'teachers' => 'المعلمين',
     'parents' => 'أولياء الأمور',
@@ -16,6 +18,5 @@ return [
     'Online' => 'حصص اونلاين',
     'Settings' => 'الاعدادات',
     'Users' => 'المستحدمين',
-    'ClassroomsList' => 'قائمة الصفوف الدراسية',
 
 ];

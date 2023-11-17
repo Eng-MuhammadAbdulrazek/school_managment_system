@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Grades\SchoolGradesController;
 use App\Http\Controllers\Classrooms\ClassroomController;
+use App\Http\Controllers\SectionController;
 
 
 Route::group(
@@ -19,7 +20,8 @@ Route::group(
         Route::resource('Grades', SchoolGradesController::class);
         Route::resource('Classrooms', ClassroomController::class);
         Route::delete('/classrooms/destroySelected', [ClassroomController::class, 'destroySelected'])->name('classrooms.destroySelected');
-
+        Route::resource('Sections', SectionController::class);
+        Route::get('classes/{id}',[SectionController::class, 'getClasses']);
 
 
 

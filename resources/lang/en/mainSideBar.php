@@ -5,7 +5,9 @@ return [
     'schoolGrades' => 'School Grades',
     'schoolGradesList' => 'School Grades List',
     'Classes' => 'Classes',
+    'ClassroomsList' => 'Classes List',
     'sections' => 'Sections',
+    'sectionsList' => 'Sections List',
     'students' => 'Students',
     'teachers' => 'Teacher',
     'parents' => 'Parents',
@@ -16,5 +18,4 @@ return [
     'Online' => 'Online Classes',
     'Settings' => 'Settings',
     'Users' => 'Users',
-    'ClassroomsList' => 'Classroom List',
 ];

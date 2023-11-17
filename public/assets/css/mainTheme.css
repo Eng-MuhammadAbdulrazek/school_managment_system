@@ -105,9 +105,9 @@ footer a{
   background: #03243e !important;
 }
 .table .thead-dark th {
-  color: #fff;
-  background-color: #013156 !important;
-  border-color: #013156 !important;
+  color: #013156 !important;
+  background-color: #ffffff !important;
+  border-color: #01315625 !important;
 }
 .table{
   margin-bottom: 0 !important;
@@ -210,4 +210,7 @@ label{
   justify-content: space-between !important;
   padding-right: 2rem !important;
   padding-left: 2rem !important;
+}
+.accordion.accordion-border .acd-group .acd-heading:hover,.accordion.accordion-border .acd-group.acd-active .acd-heading{
+  background-color: #013156 !important;
 }

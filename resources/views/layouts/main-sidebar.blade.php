@@ -40,14 +40,14 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
+                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements3">
                                         <div class="pull-left"><i class="fa fa-navicon"></i><span
                                                 class="right-nav-text">{{ trans('mainSideBar.sections') }}</span></div>
                                         <div class="pull-right"><i class="fa fa-plus"></i></div>
                                         <div class="clearfix"></div>
                                     </a>
-                                    <ul id="elements" class="collapse" data-parent="#sidebarnav">
-                                        <li><a href="#">lorem ipsum</a></li>
+                                    <ul id="elements3" class="collapse" data-parent="#sidebarnav">
+                                        <li><a href="{{ route('Sections.index') }}">{{ trans('mainSideBar.sectionsList') }}</a></li>
                                     </ul>
                                 </li>
                                 <li>
