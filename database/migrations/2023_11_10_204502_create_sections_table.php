@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('status');
-            $table->bigInteger('grade_id');
-            $table->bigInteger('class_id');
+            $table->unsignedBigInteger('grade_id');
+            $table->unsignedBigInteger('class_id');
             $table->timestamps();
         });
     }
