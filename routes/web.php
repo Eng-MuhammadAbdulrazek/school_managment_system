@@ -22,6 +22,7 @@ Route::group(
         Route::delete('/classrooms/destroySelected', [ClassroomController::class, 'destroySelected'])->name('classrooms.destroySelected');
         Route::resource('Sections', SectionController::class);
         Route::get('classes/{id}',[SectionController::class, 'getClasses']);
+        Route::patch('Sections/{Section}', [SectionController::class, 'update'])->name('Sections.update');
 
 
 

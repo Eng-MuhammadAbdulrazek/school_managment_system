@@ -13,5 +13,11 @@ return [
     'grade' => 'Grade',
     'class' => 'Class',
     'chooseGrade'=>'--- Choose a Grade ---',
-    'chooseClass' => '--- Choose a Class --- '
+    'chooseClass' => '--- Choose a Class --- ',
+    'edit' =>'Edit Section Details',
+    'save'=>'Save',
+    'delConf'=>'Are you sure you want to delete this section !',
+    'delete'=>'Delete Section '
+
+
 ];

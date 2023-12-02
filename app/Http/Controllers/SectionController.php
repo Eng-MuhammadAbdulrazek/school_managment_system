@@ -7,30 +7,34 @@ use App\Models\Grade;
 use App\Models\Classroom;
 use App\Http\Requests\StoreSectionRequest;
 use App\Http\Requests\UpdateSectionRequest;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
 
 class SectionController extends Controller
 {
     
     public function index()
     {   
-        $GradeWithSections = Grade::with('Sections')->get();
+        $Grades = Grade::with('Sections')->get();
         
-        $Grades = Grade::all();
-        return view('Pages.Sections',compact('Grades','GradeWithSections'));
+        $Grades_list = Grade::all();
+
+        return view('Pages.Sections',compact('Grades','Grades_list'));
     }
 
-    
-    public function create()
+    public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSectionRequest $request)
-    {
-        dd($request);
+        
+            $Section = new Section();
+            $Section->name = ['en' => $request['name_en'], 'ar' => $request['name_ar']];
+            $Section->status = 1;
+            $Section->grade_id = (int)$request->grade;
+            $Section->class_id = (int)$request->class;
+            $Section->save();
+            Toastr::success(trans('messages.success'), '', ["positionClass" => "toast-bottom-center"]);
+            return redirect()->route('Sections.index');    
+        
+       
     }
 
     public function getClasses($id){
@@ -38,16 +42,23 @@ class SectionController extends Controller
         return $ClassList;
     }
 
-    public function update(UpdateSectionRequest $request, Section $section)
+    public function update(Request $request,$id)
     {
-        //
+        $Section = Section::findOrFail($id);
+            $Section->name = ['en' => $request['name_en'], 'ar' => $request['name_ar']];
+            $Section->status = 1;
+            $Section->grade_id = (int)$request->grade;
+            $Section->class_id = (int)$request->class;
+            $Section->save();
+            Toastr::success(trans('messages.success'), '', ["positionClass" => "toast-bottom-center"]);
+            return redirect()->route('Sections.index');    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Section $section)
+
+    public function destroy(Request $request)
     {
-        //
+        Section::findOrFail($request->id)->delete();
+        Toastr::success(trans('messages.deleted'), '', ["positionClass" => "toast-bottom-center"]);
+        return redirect()->route('Sections.index');  
     }
 }
