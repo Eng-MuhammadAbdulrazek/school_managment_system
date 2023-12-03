@@ -27,7 +27,7 @@
                         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                             <li>
                                 <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                    @if (LaravelLocalization::getCurrentLocale() == 'ar')
+                                    @if ($localeCode == 'ar')
                                     <span class="flag-icon flag-icon-eg"></span> {{ $properties['native'] }}
                                     @else
                                     <span class="flag-icon flag-icon-gb"></span> {{ $properties['native'] }}
