@@ -67,7 +67,8 @@
                                     @endphp
                                     <tbody>
                                         @if (count($Grade->Sections) == 0)
-                                        <td colspan="4" style="text-align:center">{{ trans('Grades_T.NoData') }}</td>
+                                            <td colspan="4" style="text-align:center">{{ trans('Grades_T.NoData') }}
+                                            </td>
                                         @endif
                                         @foreach ($Grade->Sections as $list_sections)
                                             <tr>
@@ -94,8 +95,8 @@
                                                 </td>
                                             </tr>
                                             <!-- ADD Modal -->
-                                            <div class="modal fade" id="edit{{ $list_sections->id }}" tabindex="-1" role="dialog"
-                                                aria-hidden="true">
+                                            <div class="modal fade" id="edit{{ $list_sections->id }}" tabindex="-1"
+                                                role="dialog" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -107,26 +108,30 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="{{ route('Sections.update',['Section' => $list_sections->id]) }}"
+                                                            <form
+                                                                action="{{ route('Sections.update', ['Section' => $list_sections->id]) }}"
                                                                 method="POST">
                                                                 {{ method_field('patch') }}
                                                                 @csrf
                                                                 <div class="row">
-                                                                    <input type="hidden" name="id" value="{{ $list_sections->id }}">
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $list_sections->id }}">
 
                                                                     <div class="col">
                                                                         <label
                                                                             for="name_en">{{ trans('Sections.name_en') }}</label>
                                                                         <input id="name_en" name="name_en"
                                                                             type="text" class="form-control"
-                                                                            placeholder="" required value="{{ $list_sections->getTranslation('name','en')}}">
+                                                                            placeholder="" required
+                                                                            value="{{ $list_sections->getTranslation('name', 'en') }}">
                                                                     </div>
                                                                     <div class="col">
                                                                         <label
                                                                             for="name_ar">{{ trans('Sections.name_ar') }}</label>
                                                                         <input id="name_ar" name="name_ar"
                                                                             type="text" class="form-control"
-                                                                            placeholder="" required value="{{ $list_sections->getTranslation('name','ar')}}">
+                                                                            placeholder="" required
+                                                                            value="{{ $list_sections->getTranslation('name', 'ar') }}">
                                                                     </div>
                                                                 </div>
                                                                 <br>
@@ -134,15 +139,16 @@
                                                                     <div class="col">
                                                                         <label
                                                                             for="grade">{{ trans('Sections.grade') }}</label>
-                                                                        <select id="grade" name="grade" 
+                                                                        <select id="grade" name="grade"
                                                                             class="form-control">
                                                                             <option disabled>
                                                                                 {{ trans('Sections.chooseGrade') }}
                                                                             </option>
                                                                             @foreach ($Grades as $Grade)
                                                                                 @if ($Grade->id == $list_sections->grade_id)
-                                                                                <option value="{{ $Grade->id }}" selected>
-                                                                                    {{ $Grade->Name }}</option>
+                                                                                    <option value="{{ $Grade->id }}"
+                                                                                        selected>
+                                                                                        {{ $Grade->Name }}</option>
                                                                                 @endif
                                                                             @endforeach
 
@@ -160,8 +166,11 @@
                                                                                 {{ trans('Sections.chooseClass') }}
                                                                             </option>
 
-                                                                            <option value="{{ $list_sections->Classroom->id }}" selected>
-                                                                                {{ $list_sections->Classroom->Name }}</option>
+                                                                            <option
+                                                                                value="{{ $list_sections->Classroom->id }}"
+                                                                                selected>
+                                                                                {{ $list_sections->Classroom->Name }}
+                                                                            </option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -182,41 +191,51 @@
                                                 </div>
                                             </div>
                                             <!-- Modal closed -->
-                                            					<!-- del Modal -->
-					<div class="modal fade" id="delete{{ $list_sections->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-						<div class="modal-dialog " role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-							<h5 class="modal-title">{{ trans('Sections.delete') }}</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							</div>
-							<div class="modal-body">
-								<form action="{{ route('Sections.destroy','test') }}" method="POST">
-									{{ method_field('Delete') }}
-									@csrf
-									<div class="row">
-										<div class="col">
-											<input type="hidden" name="id" id="id" value="{{ $list_sections->id }}">
-											<span style="font-size: 16px">{{ trans('Sections.delConf') }}</span>
-										</div>
-									</div>
-									
-									<br>
-									<div class="row" style="width:100% !important">
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
-											<input type="submit" class="btn btn-danger" value="{{ trans('Grades_T.delete') }}">
-										</div>
-									</div>
-								</form>
-							</div>
-							
-						</div>
-						</div>
-					</div>
-					<!-- Modal closed -->
+                                            <!-- del Modal -->
+                                            <div class="modal fade" id="delete{{ $list_sections->id }}"
+                                                tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog " role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">{{ trans('Sections.delete') }}
+                                                            </h5>
+                                                            <button type="button" class="close"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ route('Sections.destroy', 'test') }}"
+                                                                method="POST">
+                                                                {{ method_field('Delete') }}
+                                                                @csrf
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <input type="hidden" name="id"
+                                                                            id="id"
+                                                                            value="{{ $list_sections->id }}">
+                                                                        <span
+                                                                            style="font-size: 16px">{{ trans('Sections.delConf') }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <br>
+                                                                <div class="row" style="width:100% !important">
+                                                                    <div class="modal-footer">
+                                                                        <button type="button"
+                                                                            class="btn btn-secondary"
+                                                                            data-dismiss="modal">{{ trans('Grades_T.Close') }}</button>
+                                                                        <input type="submit" class="btn btn-danger"
+                                                                            value="{{ trans('Grades_T.delete') }}">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal closed -->
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -306,7 +325,7 @@
             if (grade_id) {
                 $.ajax({
                     url: "{{ URL::to('classes') }}/" +
-                    grade_id, // Replace with your actual server endpoint
+                        grade_id, // Replace with your actual server endpoint
                     method: 'GET',
                     dataType: 'json', // Change the data type as needed
 
@@ -314,7 +333,7 @@
                         $('select[name="class"]').empty();
                         $('select[name="class"]').append(
                             '<option disabled selected>{{ trans('Sections.chooseClass') }}</option>'
-                            );
+                        );
                         $.each(data, function(key, value) {
                             $('select[name="class"]').append('<option value="' +
                                 key + '">' + value + '</option>');

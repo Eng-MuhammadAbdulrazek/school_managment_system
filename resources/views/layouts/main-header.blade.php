@@ -15,18 +15,31 @@
             <ul class="nav navbar-nav ml-auto">
             
 
-            <div class="dropdown">
-                <button class="dropbtn">{{ LaravelLocalization::getCurrentLocaleNative() }}</button>
-                <ul class="dropdown-content">
-                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                        <li>
-                            <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                {{ $properties['native'] }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-              </div>
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        @if (LaravelLocalization::getCurrentLocale() == 'ar')
+                        <span class="flag-icon flag-icon-eg"></span> {{ LaravelLocalization::getCurrentLocaleNative() }}
+                        @else
+                        <span class="flag-icon flag-icon-gb"></span> {{ LaravelLocalization::getCurrentLocaleNative() }}
+                        @endif
+                    </button>
+                    <ul class="dropdown-content">
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li>
+                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    @if (LaravelLocalization::getCurrentLocale() == 'ar')
+                                    <span class="flag-icon flag-icon-eg"></span> {{ $properties['native'] }}
+                                    @else
+                                    <span class="flag-icon flag-icon-gb"></span> {{ $properties['native'] }}
+                                    @endif
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                
+                
+                
               
                 <li class="nav-item fullscreen">
                     <a id="btnFullscreen" href="#" class="nav-link"><i class="fa fa-arrows-alt"></i></a>

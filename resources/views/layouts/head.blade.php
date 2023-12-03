@@ -11,6 +11,7 @@
 <link href="{{ asset('assets/css/plugins/bootstrap.min.css') }}" rel="stylesheet">
 <!-- Include DataTables CSS -->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/plugins/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" crossorigin="anonymous" />
 
 <!--- Style css -->
 @if (App::getLocale() == 'en')
