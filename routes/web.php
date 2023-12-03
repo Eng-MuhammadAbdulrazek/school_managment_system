@@ -4,12 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Grades\SchoolGradesController;
 use App\Http\Controllers\Classrooms\ClassroomController;
 use App\Http\Controllers\SectionController;
-
+use Livewire\Livewire;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
     [
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth', 'verified'],
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth', 'verified',],
     ],
     function () {
     
@@ -23,11 +24,15 @@ Route::group(
         Route::resource('Sections', SectionController::class);
         Route::get('classes/{id}',[SectionController::class, 'getClasses']);
         Route::patch('Sections/{Section}', [SectionController::class, 'update'])->name('Sections.update');
-
-
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/livewire/update', $handle);
+        });
+        Route::get('test',function(){
+            return view('app');
+        });
 
     });
-
+  
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
