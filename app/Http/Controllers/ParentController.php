@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\blood_types;
+use App\Models\Nationality;
 use App\Models\ParentModel;
+use App\Models\Relegion;
 use Illuminate\Http\Request;
 
 class ParentController extends Controller
@@ -12,7 +15,10 @@ class ParentController extends Controller
      */
     public function index()
     {
-        return view('Pages.Parents.Parents');
+        $relegions = Relegion::all();
+        $bloods = blood_types::all();
+        $nations = Nationality::all();
+        return view('Pages.Parents.Parents',compact(['relegions','bloods','nations']));
     }
 
     /**

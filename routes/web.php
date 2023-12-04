@@ -15,24 +15,26 @@ Route::group(
     ],
     function () {
     
+        // root directory
         Route::get('/', function () {
             return view('dashboard');
         });
 
         Route::resource('Grades', SchoolGradesController::class);
+
         Route::resource('Classrooms', ClassroomController::class);
         Route::delete('/classrooms/destroySelected', [ClassroomController::class, 'destroySelected'])->name('classrooms.destroySelected');
+        
         Route::resource('Sections', SectionController::class);
         Route::get('classes/{id}',[SectionController::class, 'getClasses']);
         Route::patch('Sections/{Section}', [SectionController::class, 'update'])->name('Sections.update');
+        
         Route::resource('Parents', ParentController::class);
 
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle);
         });
-        Route::get('test',function(){
-            return view('app');
-        });
+      
 
     });
   

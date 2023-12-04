@@ -215,3 +215,45 @@ label{
 .accordion.accordion-border .acd-group .acd-heading:hover,.accordion.accordion-border .acd-group.acd-active .acd-heading{
   background-color: #013156 !important;
 }
+.display-none {
+  display: none !important;
+}
+.multi-wizard-step p {
+  margin-top: 12px !important;
+}
+.stepwizard-row {
+  display: table-row !important;
+}
+.stepwizard {
+  display: table !important;
+  position: relative !important;
+  width: 100% !important;
+}
+.multi-wizard-step button[disabled] {
+  filter: alpha(opacity=100) !important;
+  opacity: 1 !important;
+}
+.stepwizard-row:before {
+  top: 14px !important;
+  bottom: 0 !important;
+  content: " " !important;
+  width: 100% !important;
+  height: 1px !important;
+  z-index: 0 !important;
+  position: absolute !important;
+  background-color: #fefefe ;
+}
+.multi-wizard-step {
+  text-align: center !important;
+  position: relative !important;
+  display: table-cell !important;
+}
+.btn-primary{
+  border: 1px solid grey !important;
+}
+.nextBtn{
+  font-size: unset !important;
+}
+.content-wrapper{
+  min-height: auto !important;
+}
