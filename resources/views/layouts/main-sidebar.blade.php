@@ -73,14 +73,15 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements">
+                                    <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements6">
                                         <div class="pull-left"><i class="fa fa-user-secret"></i><span
                                                 class="right-nav-text">{{ trans('mainSideBar.parents') }}</span></div>
                                         <div class="pull-right"><i class="fa fa-plus"></i></div>
                                         <div class="clearfix"></div>
                                     </a>
-                                    <ul id="elements" class="collapse" data-parent="#sidebarnav">
-                                        <li><a href="#">lorem ipsum</a></li>
+                                    <ul id="elements6" class="collapse" data-parent="#sidebarnav">
+                                        <li><a href="{{ route('Parents.index') }}">{{ trans('mainSideBar.parentlist') }}</a></li>
+                                        <li><a href="{{ route('Parents.create') }}">{{ trans('mainSideBar.addparent')}}</a></li>
                                     </ul>
                                 </li>
                                 <li>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Grades\SchoolGradesController;
 use App\Http\Controllers\Classrooms\ClassroomController;
+use App\Http\Controllers\ParentController;
 use App\Http\Controllers\SectionController;
 use Livewire\Livewire;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -24,6 +25,8 @@ Route::group(
         Route::resource('Sections', SectionController::class);
         Route::get('classes/{id}',[SectionController::class, 'getClasses']);
         Route::patch('Sections/{Section}', [SectionController::class, 'update'])->name('Sections.update');
+        Route::resource('Parents', ParentController::class);
+
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle);
         });
